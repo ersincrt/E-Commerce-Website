@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ürün 3</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="brand">
+                <a href="/">
+                    <i class="fas fa-shoe-prints"></i> TİREÇ
+                </a>
+            </div>
+            <div class="search-container">
+                <form action="/search" method="get">
+                    <input type="text" placeholder="Ara..." name="query">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="menu">
+                <a href="/">Anasayfa</a>
+                <div class="dropdown">
+                    <a href="/urunler" class="dropbtn">Ürünler</a>
+                    <div class="dropdown-content">
+                        <a href="/kadin">Kadın</a>
+                        <a href="/erkek">Erkek</a>
+                        <a href="/cocuk">Çocuk</a>
+                    </div>
+                </div>
+                <a href="/iletisim">İletişim</a>
+                <div class="dropdown" th:if="${session.kullanici == null}">
+                    <a href="/giris" class="dropbtn">Giriş Yap &#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="/uyeol">Üye Ol</a>
+                        <a href="/giris">Giriş Yap</a>
+                    </div>
+                </div>
+                <div th:if="${session.kullanici != null}">
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn"><i class="fas fa-user"></i> Profil &#x25BC;</a>
+                        <div class="dropdown-content">
+                            <a href="/profil">Profilim</a>
+                            <a href="/cikis">Çıkış Yap</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/sepetim" class="cart">
+                    <i class="fas fa-shopping-cart"></i> Sepetim <span class="cart-count" id="cart-count">(0)</span>
+                </a>
+            </div>
+        </div>
+        <div class="product-details">
+            <h1>Ürün 3</h1>
+            <div class="product-container">
+                <div class="product-image">
+                    <img id="product-image" src="/images/kadin3.1.jpg" alt="Ürün 3">
+                </div>
+                <div class="product-info">
+                    <h2>Ayakkabı Modeli</h2>
+                    <p>Fiyat: 999 TL</p>
+                    <p>Beden: 
+                        <select id="product-size">
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                        </select>
+                    </p>
+                    <p>Renk: 
+                        <select id="product-color">
+                            <option value="siyah">Siyah</option>
+                            <option value="beyaz">Beyaz</option>
+                            <option value="kirmizi">Kırmızı</option>
+                            <option value="mavi">Mavi</option>
+                        </select>
+                    </p>
+                    <button type="button" class="add-to-cart" onclick="addToCart('Ürün 3', 999, '/images/kadin3.1.jpg')">Sepete Ekle</button>
+                </div>
+            </div>
+            <div class="product-description">
+                <h3>Ürün Açıklaması</h3>
+                <p>Bu ayakkabı modeli, hem şıklığı hem de rahatlığı bir arada sunar. Yüksek kaliteli malzemelerden üretilmiştir ve modern tasarımıyla her türlü kombinle uyum sağlar. Uzun süreli kullanımlar için idealdir ve ayağınıza mükemmel uyum sağlar.</p>
+                <p>Özellikler:</p>
+                <ul>
+                    <li><strong>Yüksek kaliteli deri:</strong> Dayanıklı ve şık.</li>
+                    <li><strong>Rahat iç taban:</strong> Gün boyu konfor sağlar.</li>
+                    <li><strong>Dayanıklı dış taban:</strong> Uzun ömürlü kullanım.</li>
+                    <li><strong>Farklı renk seçenekleri:</strong> Her tarza uygun.</li>
+                    <li><strong>Modern ve şık tasarım:</strong> Her kombine uyum sağlar.</li>
+                </ul>
+                <div class="additional-details">
+                    <h4>Bakım Talimatları:</h4>
+                    <p>Ayakkabınızı temiz tutmak için nemli bir bezle silin ve doğrudan güneş ışığından uzak tutun.</p>
+                    <h4>Garanti:</h4>
+                    <p>Bu ürün 2 yıl garanti kapsamındadır.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-box">
+            <p class="footer-text">
+                Ayakkabılarımız en kaliteli malzemelerden üretilmiştir ve her yaş grubu için mükemmel konfor sağlar. Kadın, erkek ve çocuk ayakkabıları koleksiyonlarımız ile her tarza ve ihtiyaca uygun seçenekler sunuyoruz.
+                Günlük kullanımdan spor aktivitelerine kadar her türlü ihtiyaca yönelik ayakkabı modellerimiz mevcuttur. Ayrıca, ayakkabılarımızın tasarımı modern ve şıktır, bu da onları hem rahat hem de stil sahibi yapar.
+            </p>
+        </div>
+    </div>
+    <script>
+        function addToCart(productName, price, imageUrl) {
+            let size = document.getElementById('product-size').value;
+            let color = document.getElementById('product-color').value;
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push({ name: productName, price: price, size: size, color: color, imageUrl: imageUrl });
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            let cartCountElement = document.getElementById('cart-count');
+            let count = parseInt(cartCountElement.textContent.replace('(', '').replace(')', ''));
+            count += 1;
+            cartCountElement.textContent = `(${count})`;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            let cartCountElement = document.getElementById('cart-count');
+            cartCountElement.textContent = `(${cartItems.length})`;
+        });
+    </script>
+</body>
+</html>

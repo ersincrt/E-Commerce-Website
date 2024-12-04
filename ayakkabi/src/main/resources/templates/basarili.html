@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kayıt Başarılı</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        .success-container {
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+            max-width: 600px;
+        }
+        .success-container h1 {
+            color: black;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .success-container p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .success-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .success-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar kısmı buraya ekleniyor -->
+        <div class="navbar">
+            <div class="brand">
+                <a href="/">
+                    <i class="fas fa-shoe-prints"></i> TİREÇ
+                </a>
+            </div>
+            <div class="search-container">
+                <form action="/search" method="get">
+                    <input type="text" placeholder="Ara..." name="search">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="menu">
+                <a href="/">Anasayfa</a>
+                <div class="dropdown">
+                    <a href="/urunler" class="dropbtn">Ürünler</a>
+                    <div class="dropdown-content">
+                        <a href="/kadin">Kadın</a>
+                        <a href="/erkek">Erkek</a>
+                        <a href="/cocuk">Çocuk</a>
+                    </div>
+                </div>
+                <a href="/iletisim">İletişim</a>
+                <div class="dropdown" th:if="${session.kullanici == null}">
+                    <a href="/giris" class="dropbtn">Giriş Yap &#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="/uyeol">Üye Ol</a>
+                        <a href="/giris">Giriş Yap</a>
+                    </div>
+                </div>
+                <a href="/sepetim" class="cart"><i class="fas fa-shopping-cart"></i> Sepetim</a>
+            </div>
+        </div>
+        <!-- Navbar kısmı burada bitiyor -->
+
+        <div class="success-container">
+            <h1>Kayıt Başarılı!</h1>
+            <p>Üyeliğiniz başarıyla oluşturulmuştur.</p>
+            <a href="/">Anasayfaya Dön</a>
+        </div>
+        
+        <!-- Footer kısmı buraya ekleniyor -->
+        <div class="footer-box">
+            <p class="footer-text">
+                Ayakkabılarımız en kaliteli malzemelerden üretilmiştir ve her yaş grubu için mükemmel konfor sağlar. Kadın, erkek ve çocuk ayakkabıları koleksiyonlarımız ile her tarza ve ihtiyaca uygun seçenekler sunuyoruz. 
+                Günlük kullanımdan spor aktivitelerine kadar her türlü ihtiyaca yönelik ayakkabı modellerimiz mevcuttur. Ayrıca, ayakkabılarımızın tasarımı modern ve şıktır, bu da onları hem rahat hem de stil sahibi yapar.
+            </p>
+        </div>
+        <!-- Footer kısmı burada bitiyor -->
+    </div>
+</body>
+</html>

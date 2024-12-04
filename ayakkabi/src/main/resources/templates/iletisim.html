@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>İletişim - TİREÇ</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/iletisim.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="brand">
+                <a href="/"><i class="fas fa-shoe-prints"></i> TİREÇ</a>
+            </div>
+            <div class="search-container">
+                <form action="/search" method="get">
+                    <input type="text" placeholder="Ara..." name="search">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="menu">
+                <a href="/">Anasayfa</a>
+                <div class="dropdown">
+                    <a href="/urunler" class="dropbtn">Ürünler</a>
+                    <div class="dropdown-content">
+                        <a href="/kadin">Kadın</a>
+                        <a href="/erkek">Erkek</a>
+                        <a href="/cocuk">Çocuk</a>
+                    </div>
+                </div>
+                <a href="/iletisim">İletişim</a>
+                <div class="dropdown" th:if="${session.kullanici == null}">
+                    <a href="/giris" class="dropbtn">Giriş Yap &#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="/uyeol">Üye Ol</a>
+                        <a href="/giris">Giriş Yap</a>
+                    </div>
+                </div>
+                <div th:if="${session.kullanici != null}">
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn"><i class="fas fa-user"></i> Profil &#x25BC;</a>
+                        <div class="dropdown-content">
+                            <a href="/profil">Profilim</a>
+                            <a href="/cikis">Çıkış Yap</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/sepetim" class="cart"><i class="fas fa-shopping-cart"></i> Sepetim</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="main-content">
+                <h1>İletişim</h1>
+                <p>Bize ulaşmak için aşağıdaki formu doldurun veya iletişim bilgilerimizden bize ulaşabilirsiniz.</p>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> Telefon: +90 123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> E-posta: info@tirec.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Adres: Örnek Mah. Örnek Sok. No:1, İstanbul, Türkiye</p>
+                </div>
+                <div class="contact-form">
+                    <form action="/iletisim" method="post">
+                        <label for="name">Ad Soyad</label>
+                        <input type="text" id="name" name="name" placeholder="Adınızı ve soyadınızı girin" required>
+                        
+                        <label for="email">E-posta</label>
+                        <input type="email" id="email" name="email" placeholder="E-posta adresinizi girin" required>
+                        
+                        <label for="message">Mesajınız</label>
+                        <textarea id="message" name="message" placeholder="Mesajınızı buraya yazın" required></textarea>
+                        
+                        <button type="submit">Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-box">
+            <p class="footer-text">
+                Ayakkabılarımız en kaliteli malzemelerden üretilmiştir ve her yaş grubu için mükemmel konfor sağlar. Kadın, erkek ve çocuk ayakkabıları koleksiyonlarımız ile her tarza ve ihtiyaca uygun seçenekler sunuyoruz.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

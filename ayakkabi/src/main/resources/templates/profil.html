@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Profilim</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar kısmı buraya ekleniyor -->
+        <div class="navbar">
+            <div class="brand">
+                <a href="/">
+                    <i class="fas fa-shoe-prints"></i> TİREÇ
+                </a>
+            </div>
+            <div class="search-container">
+                <form action="/search" method="get">
+                    <input type="text" placeholder="Ara..." name="search">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="menu">
+                <a href="/">Anasayfa</a>
+                <div class="dropdown">
+                    <a href="/urunler" class="dropbtn">Ürünler</a>
+                    <div class="dropdown-content">
+                        <a href="/kadin">Kadın</a>
+                        <a href="/erkek">Erkek</a>
+                        <a href="/cocuk">Çocuk</a>
+                    </div>
+                </div>
+                <a href="/iletisim">İletişim</a>
+                <div class="dropdown" th:if="${session.kullanici == null}">
+                    <a href="/giris" class="dropbtn">Giriş Yap &#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="/uyeol">Üye Ol</a>
+                        <a href="/giris">Giriş Yap</a>
+                    </div>
+                </div>
+                <div th:if="${session.kullanici != null}">
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn"><i class="fas fa-user"></i> Profil &#x25BC;</a>
+                        <div class="dropdown-content">
+                            <a href="/profil">Profilim</a>
+                            <a href="/cikis">Çıkış Yap</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/sepetim" class="cart"><i class="fas fa-shopping-cart"></i> Sepetim</a>
+            </div>
+        </div>
+        <!-- Navbar kısmı burada bitiyor -->
+
+        <div class="profile-container">
+            <div class="profile-box">
+                <div class="profile-header">
+                    <i class="fas fa-user"></i>
+                    <h2>Profilim</h2>
+                </div>
+                <div class="profile-info">
+                    <p><strong>Ad:</strong> <span th:text="${kullanici.ad}"></span></p>
+                    <p><strong>Soyad:</strong> <span th:text="${kullanici.soyad}"></span></p>
+                    <p><strong>E-mail:</strong> <span th:text="${kullanici.email}"></span></p>
+                    <p><strong>Telefon:</strong> <span th:text="${kullanici.telefon}"></span></p>
+                    <p><strong>Doğum Tarihi:</strong> <span th:text="${kullanici.dogumTarihi}"></span></p>
+                    <p><strong>Cinsiyet:</strong> <span th:text="${kullanici.cinsiyet}"></span></p>
+                </div>
+                <div class="profile-buttons">
+                    <a href="/profil/duzenle" class="edit-profile">Profili Düzenle</a>
+                    <form action="/cikis" method="post">
+                        <button type="submit" class="logout">Çıkış Yap</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer kısmı buraya ekleniyor -->
+        <div class="footer-box">
+            <p class="footer-text">
+                Ayakkabılarımız en kaliteli malzemelerden üretilmiştir ve her yaş grubu için mükemmel konfor sağlar. Kadın, erkek ve çocuk ayakkabıları koleksiyonlarımız ile her tarza ve ihtiyaca uygun seçenekler sunuyoruz. 
+                Günlük kullanımdan spor aktivitelerine kadar her türlü ihtiyaca yönelik ayakkabı modellerimiz mevcuttur. Ayrıca, ayakkabılarımızın tasarımı modern ve şıktır, bu da onları hem rahat hem de stil sahibi yapar.
+            </p>
+        </div>
+        <!-- Footer kısmı burada bitiyor -->
+    </div>
+</body>
+</html>

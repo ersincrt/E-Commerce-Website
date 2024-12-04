@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kadın Ürünleri</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="brand">
+                <a href="/">
+                    <i class="fas fa-shoe-prints"></i> TİREÇ
+                </a>
+            </div>
+            <div class="search-container">
+                <form action="/search" method="get">
+                    <input type="text" placeholder="Ara..." name="search">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="menu">
+                <a href="/">Anasayfa</a>
+                <div class="dropdown">
+                    <a href="/urunler" class="dropbtn">Ürünler</a>
+                    <div class="dropdown-content">
+                        <a href="/kadin">Kadın</a>
+                        <a href="/erkek">Erkek</a>
+                        <a href="/cocuk">Çocuk</a>
+                    </div>
+                </div>
+                <a href="/iletisim">İletişim</a>
+                <div class="dropdown" th:if="${session.kullanici == null}">
+                    <a href="/giris" class="dropbtn">Giriş Yap &#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="/uyeol">Üye Ol</a>
+                        <a href="/giris">Giriş Yap</a>
+                    </div>
+                </div>
+                <div th:if="${session.kullanici != null}">
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn"><i class="fas fa-user"></i> Profil &#x25BC;</a>
+                        <div class="dropdown-content">
+                            <a href="/profil">Profilim</a>
+                            <a href="/cikis">Çıkış Yap</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/sepetim" class="cart"><i class="fas fa-shopping-cart"></i> Sepetim</a>
+            </div>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="/images/cocuk1.1.jpg" alt="Cocuk Ürün 1">
+                <h2>Cocuk Ürün 1</h2>
+                <p>Fiyat: 999 TL</p>
+            </div>
+            <div class="product-card">
+                <img src="/images/cocuk2.1.jpg" alt="Cocuk Ürün 2">
+                <h2>Cocuk Ürün 2</h2>
+                <p>Fiyat: 999 TL</p>
+            </div>
+            <div class="product-card">
+                <img src="/images/cocuk3.1.jpg" alt="Cocuk Ürün 3">
+                <h2>Cocuk Ürün 3</h2>
+                <p>Fiyat: 999 TL</p>
+            </div>
+        </div>
+        <div class="footer-box">
+            <p class="footer-text">
+                Ayakkabılarımız en kaliteli malzemelerden üretilmiştir ve her yaş grubu için mükemmel konfor sağlar. Kadın, erkek ve çocuk ayakkabıları koleksiyonlarımız ile her tarza ve ihtiyaca uygun seçenekler sunuyoruz.
+                Günlük kullanımdan spor aktivitelerine kadar her türlü ihtiyaca yönelik ayakkabı modellerimiz mevcuttur. Ayrıca, ayakkabılarımızın tasarımı modern ve şıktır, bu da onları hem rahat hem de stil sahibi yapar.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

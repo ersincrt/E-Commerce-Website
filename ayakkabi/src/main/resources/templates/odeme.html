@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ödeme</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            max-width: 1200px;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .navbar .search-container button i {
+            color: black;
+            margin-bottom: 5px;
+        }
+        .navbar .search-container input[type="text"] {
+            padding: 5px 40px 5px 10px;
+            font-size: 16px;
+            width: 350px;
+            border: 2px solid black;
+            border-radius: 5px;
+            outline: none;
+            margin-top: 7px;
+        }
+
+        .payment-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .payment-box, .delivery-box {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: black;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: black;
+        }
+
+        .order-summary {
+            background-color: #fafafa;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .order-summary h3 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">
+            <a href="/">
+                <i class="fas fa-shoe-prints"></i> TİREÇ
+            </a>
+        </div>
+        <div class="search-container">
+            <form action="/search" method="get">
+                <input type="text" placeholder="Ara..." name="query">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <div class="menu">
+            <a href="/">Anasayfa</a>
+            <div class="dropdown">
+                <a href="/urunler" class="dropbtn">Ürünler</a>
+                <div class="dropdown-content">
+                    <a href="/kadin">Kadın</a>
+                    <a href="/erkek">Erkek</a>
+                    <a href="/cocuk">Çocuk</a>
+                </div>
+            </div>
+            <a href="/iletisim">İletişim</a>
+            <div class="dropdown" th:if="${session.kullanici == null}">
+                <a href="/giris" class="dropbtn">Giriş Yap &#x25BC;</a>
+                <div class="dropdown-content">
+                    <a href="/uyeol">Üye Ol</a>
+                    <a href="/giris">Giriş Yap</a>
+                </div>
+            </div>
+            <div th:if="${session.kullanici != null}">
+                <div class="dropdown">
+                    <a href="#" class="dropbtn"><i class="fas fa-user"></i> Profil &#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="/profil">Profilim</a>
+                        <a href="/cikis">Çıkış Yap</a>
+                    </div>
+                </div>
+            </div>
+            <a href="/sepetim" class="cart">
+                <i class="fas fa-shopping-cart"></i> Sepetim <span class="cart-count" id="cart-count">(0)</span>
+            </a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="payment-container">
+            <div class="delivery-box">
+                <h2>Teslimat Bilgileri</h2>
+                <form id="deliveryForm">
+                    <label for="name">Adınız ve Soyadınız</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="address">Teslimat Adresi</label>
+                    <input type="text" id="address" name="address" required>
+
+                    <label for="city">Şehir</label>
+                    <input type="text" id="city" name="city" required>
+
+                    <label for="postal-code">Posta Kodu</label>
+                    <input type="text" id="postal-code" name="postalCode" required>
+
+                    <label for="phone">Telefon Numarası</label>
+                    <input type="text" id="phone" name="phone" required>
+                </form>
+            </div>
+            <div class="payment-box">
+                <h2>Ödeme Bilgileri</h2>
+                <form action="/odeme-onay" method="post" onsubmit="return validateForms()">
+                    <label for="card-name">Kart Üzerindeki İsim</label>
+                    <input type="text" id="card-name" name="cardName" required>
+
+                    <label for="card-number">Kart Numarası</label>
+                    <input type="text" id="card-number" name="cardNumber" required>
+
+                    <label for="expiry-date">Son Kullanma Tarihi</label>
+                    <input type="month" id="expiry-date" name="expiryDate" required>
+
+                    <label for="cvv">CVV</label>
+                    <input type="number" id="cvv" name="cvv" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <div class="order-summary">
+                        <h3>Sipariş Özeti</h3>
+                        <div id="order-items">
+                            <!-- Sipariş ürünleri burada listelenecek -->
+                        </div>
+                        <p><strong>Toplam Tutar:</strong> <span id="total-amount">0 TL</span></p>
+                    </div>
+
+                    <button type="submit">Ödemeyi Tamamla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadOrderSummary() {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            let orderItemsContainer = document.getElementById('order-items');
+            let totalAmount = 0;
+
+            if (cartItems.length === 0) {
+                orderItemsContainer.innerHTML = "<p>Sepetiniz boş.</p>";
+            } else {
+                orderItemsContainer.innerHTML = "";
+                cartItems.forEach((item) => {
+                    orderItemsContainer.innerHTML += `
+                        <p><strong>${item.name}</strong> - ${item.price} TL</p>
+                    `;
+                    totalAmount += item.price;
+                });
+
+                document.getElementById('total-amount').textContent = `${totalAmount} TL`;
+            }
+        }
+
+        function validateForms() {
+            // Validate both forms before submitting
+            return document.getElementById('deliveryForm').reportValidity() && document.forms[1].reportValidity();
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadOrderSummary();
+        });
+    </script>
+</body>
+</html>

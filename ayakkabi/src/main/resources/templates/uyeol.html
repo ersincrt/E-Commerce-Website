@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Üye Ol</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar kısmı buraya ekleniyor -->
+        <div class="navbar">
+            <div class="brand">
+                <a href="/">
+                    <i class="fas fa-shoe-prints"></i> TİREÇ
+                </a>
+            </div>
+            <div class="search-container">
+                <form action="/search" method="get">
+                    <input type="text" placeholder="Ara..." name="search">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="menu">
+                <a href="/">Anasayfa</a>
+                <div class="dropdown">
+                    <a href="/urunler" class="dropbtn">Ürünler</a>
+                    <div class="dropdown-content">
+                        <a href="/kadin">Kadın</a>
+                        <a href="/erkek">Erkek</a>
+                        <a href="/cocuk">Çocuk</a>
+                    </div>
+                </div>
+                <a href="/iletisim">İletişim</a>
+                <div class="dropdown" th:if="${session.kullanici == null}">
+                    <a href="/giris" class="dropbtn">Giriş Yap &#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="/uyeol">Üye Ol</a>
+                        <a href="/giris">Giriş Yap</a>
+                    </div>
+                </div>
+                <div th:if="${session.kullanici != null}">
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn"><i class="fas fa-user"></i> Profil &#x25BC;</a>
+                        <div class="dropdown-content">
+                            <a href="/profil">Profilim</a>
+                            <a href="/cikis">Çıkış Yap</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="/sepetim" class="cart"><i class="fas fa-shopping-cart"></i> Sepetim</a>
+            </div>
+        </div>
+        <!-- Navbar kısmı burada bitiyor -->
+
+        <div class="signup-container">
+            <div class="signup-box">
+                <div class="signup-header">
+                    <i class="fas fa-user-plus"></i>
+                    <h2>Üye Ol</h2>
+                </div>
+
+                <!-- Hata mesajı -->
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.
+                </div>
+
+                <form action="/uyeol" method="post">
+                    <input type="text" name="ad" placeholder="Ad" required>
+                    <input type="text" name="soyad" placeholder="Soyad" required>
+                    <input type="email" name="email" placeholder="E-mail" required>
+                    <input type="tel" name="telefon" placeholder="Cep Telefonu" required>
+                    <input type="password" name="sifre" placeholder="Şifre" required>
+                    <label for="dogum_tarihi">Doğum Tarihi:</label>
+                    <input type="date" id="dogum_tarihi" name="dogumTarihi" required>
+                    <label for="cinsiyet">Cinsiyet:</label>
+                    <select id="cinsiyet" name="cinsiyet" required>
+                        <option value="erkek">Erkek</option>
+                        <option value="kadin">Kadın</option>
+                        <option value="diger">Diğer</option>
+                    </select>
+                    <div class="checkboxes">
+                        <label>
+                            <input type="checkbox" name="uyelikSozlesmesi" required> Üyelik Sözleşmesi'ni okudum, kabul ediyorum *
+                        </label>
+                        <label>
+                            <input type="checkbox" name="adimKartSozlesmesi"> Adım Kart Sözleşmesi'ni ve Aydınlatma Metni'ni okudum, kabul ediyorum
+                        </label>
+                        <label>
+                            <input type="checkbox" name="kvkk" required> KVKK ve Aydınlatma Metni’ni okudum ve burada belirtilen amaçlar dahilinde kişisel verilerimin işlenmesine ve aktarılmasına açık rıza vermekteyim. *
+                        </label>
+                    </div>
+                    <button type="submit">Üye Ol</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Footer kısmı buraya ekleniyor -->
+        <div class="footer-box">
+            <p class="footer-text">
+                Ayakkabılarımız en kaliteli malzemelerden üretilmiştir ve her yaş grubu için mükemmel konfor sağlar. Kadın, erkek ve çocuk ayakkabıları koleksiyonlarımız ile her tarza ve ihtiyaca uygun seçenekler sunuyoruz. 
+                Günlük kullanımdan spor aktivitelerine kadar her türlü ihtiyaca yönelik ayakkabı modellerimiz mevcuttur. Ayrıca, ayakkabılarımızın tasarımı modern ve şıktır, bu da onları hem rahat hem de stil sahibi yapar.
+            </p>
+        </div>
+        <!-- Footer kısmı burada bitiyor -->
+    </div>
+</body>
+</html>
