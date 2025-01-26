@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${urun.ad}">Ürün Detayı</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="brand">
+                <a href="/">
+                    <i class="fas fa-shoe-prints"></i> TİREÇ
+                </a>
+            </div>
+            <div class="menu">
+                <a href="/">Anasayfa</a>
+                <div class="dropdown">
+                    <a href="/urunler" class="dropbtn">Ürünler</a>
+                    <div class="dropdown-content">
+                        <a href="/kadin">Kadın</a>
+                        <a href="/erkek">Erkek</a>
+                        <a href="/cocuk">Çocuk</a>
+                    </div>
+                </div>
+                <a href="/iletisim">İletişim</a>
+                <a href="/sepetim" class="cart"><i class="fas fa-shopping-cart"></i> Sepetim</a>
+            </div>
+        </div>
+
+        <div class="product-detail">
+            <div class="product-image">
+                <img th:src="@{'/images/' + ${urun.resim}}" th:alt="${urun.ad}">
+            </div>
+            <div class="product-info">
+                <h1 th:text="${urun.ad}">Ürün Adı</h1>
+                <p th:text="'Marka: ' + ${urun.marka}">Marka: X</p>
+                <p th:text="'Model: ' + ${urun.model}">Model: Y</p>
+                <p th:text="'Kategori: ' + ${urun.kategori}">Kategori: Z</p>
+                <p th:text="'Fiyat: ' + ${urun.fiyat} + ' TL'">Fiyat: 999 TL</p>
+                <p th:text="'Stok: ' + ${urun.stok}">Stok: 10</p>
+                <button class="add-to-cart">Sepete Ekle</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

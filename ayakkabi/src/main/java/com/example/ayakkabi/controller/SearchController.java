@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SearchController {
 
     @GetMapping("/search")
-    public ModelAndView search(@RequestParam("query") String query) {
+    public ModelAndView search(@RequestParam String query) {
         ModelAndView modelAndView = new ModelAndView();
 
         // Arama sorgusunu normalize et (boşlukları kaldır ve küçük harfe çevir)

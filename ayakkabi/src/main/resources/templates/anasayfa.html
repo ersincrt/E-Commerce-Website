@@ -5,9 +5,22 @@
     <title>TİREÇ</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .admin-section a {
+            background-color: #f8f9fa;
+            color: #000000;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .admin-section a:hover {
+            background-color: #e2e6ea;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <header>
         <div class="navbar">
             <div class="brand">
                 <a href="/">
@@ -48,6 +61,8 @@
                 <a href="/sepetim" class="cart"><i class="fas fa-shopping-cart"></i> Sepetim <span class="cart-count" id="cart-count">(0)</span></a>
             </div>
         </div>
+    </header>
+    <div class="container">
         <div class="content">
             <div class="sidebar">
                 <a href="/firsatUrunu">
@@ -84,6 +99,10 @@
                 Günlük kullanımdan spor aktivitelerine kadar her türlü ihtiyaca yönelik ayakkabı modellerimiz mevcuttur. Ayrıca, ayakkabılarımızın tasarımı modern ve şıktır, bu da onları hem rahat hem de stil sahibi yapar.
             </p>
         </div>
+    </div>
+    <div class="admin-section" style="text-align: right; margin-top: 10px;">
+        <a href="/admin/giris" class="admin-login" style="margin-right: 10px;">Admin Giriş</a>
+        <a href="/admin/kayit" class="admin-register">Admin Kayıt</a>
     </div>
 </body>
 </html>

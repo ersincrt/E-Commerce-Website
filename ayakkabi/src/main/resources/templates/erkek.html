@@ -2,9 +2,74 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Kadın Ürünleri</title>
+    <title>Erkek Ayakkabıları</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        
+        .product-card {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .product-card img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            background-color: #fff;
+            display: block;
+            margin: 0 auto 15px;
+        }
+        
+        .product-card h2 {
+            margin: 10px 0;
+            font-size: 1.2em;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .product-card p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 1em;
+        }
+        
+        .product-card .price {
+            font-weight: bold;
+            color: #e44d26;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -16,7 +81,7 @@
             </div>
             <div class="search-container">
                 <form action="/search" method="get">
-                    <input type="text" placeholder="Ara..." name="search">
+                    <input type="text" placeholder="Ara..." name="query">
                     <button type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
@@ -50,27 +115,28 @@
                 <a href="/sepetim" class="cart"><i class="fas fa-shopping-cart"></i> Sepetim</a>
             </div>
         </div>
+
         <div class="product-grid">
-            <div class="product-card">
-                <img src="/images/erkek1.1.jpg" alt="Erkek Ürün 1">
-                <h2>Erkek Ürün 1</h2>
-                <p>Fiyat: 999 TL</p>
-            </div>
-            <div class="product-card">
-                <img src="/images/erkek2.1.jpg" alt="Erkek Ürün 2">
-                <h2>Erkek Ürün 2</h2>
-                <p>Fiyat: 999 TL</p>
-            </div>
-            <div class="product-card">
-                <img src="/images/erkek3.1.jpg" alt="Erkek Ürün 3">
-                <h2>Erkek Ürün 3</h2>
-                <p>Fiyat: 999 TL</p>
-            </div>
+            <!-- Dinamik Ürünler -->
+            <th:block th:if="${urunler != null}">
+                <div class="product-card" th:each="urun, iterStat : ${urunler}">
+                    <th:block th:if="${iterStat.index < 3}">
+                        <a th:href="@{'/urun/' + ${urun.id}}">
+                            <img th:src="@{'/images/' + ${urun.resim}}" th:alt="'Ürün ' + ${iterStat.index + 1}">
+                        </a>
+                        <h2 th:text="'Ürün ' + ${iterStat.index + 1}">Ürün Adı</h2>
+                        <p class="brand" th:text="'Marka: ' + ${urun.marka}">Marka: X</p>
+                        <p class="model" th:text="'Model: ' + ${urun.model}">Model: Y</p>
+                        <p class="price" th:text="'Fiyat: ' + ${urun.fiyat} + ' TL'">Fiyat: 1999 TL</p>
+                    </th:block>
+                </div>
+            </th:block>
         </div>
+
         <div class="footer-box">
             <p class="footer-text">
-                Ayakkabılarımız en kaliteli malzemelerden üretilmiştir ve her yaş grubu için mükemmel konfor sağlar. Kadın, erkek ve çocuk ayakkabıları koleksiyonlarımız ile her tarza ve ihtiyaca uygun seçenekler sunuyoruz.
-                Günlük kullanımdan spor aktivitelerine kadar her türlü ihtiyaca yönelik ayakkabı modellerimiz mevcuttur. Ayrıca, ayakkabılarımızın tasarımı modern ve şıktır, bu da onları hem rahat hem de stil sahibi yapar.
+                Erkek ayakkabı koleksiyonumuz, şık tasarımları ve dayanıklı yapısıyla öne çıkar. Her tarza ve ihtiyaca uygun seçenekler sunuyoruz.
+                Günlük kullanımdan iş hayatına kadar her ortama uygun ayakkabı modellerimiz mevcuttur.
             </p>
         </div>
     </div>

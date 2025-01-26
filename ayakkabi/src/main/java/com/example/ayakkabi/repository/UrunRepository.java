@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface UrunRepository extends JpaRepository<Urun, Long> {
     List<Urun> findByKategori(String kategori);
-    List<Urun> findByMarka(String marka);
-    List<Urun> findByFiyatBetween(int minFiyat, int maxFiyat);
-    List<Urun> findByKategoriAndMarkaAndFiyatBetween(String kategori, String marka, int minFiyat, int maxFiyat);
+    List<Urun> findAllByOrderByIdDesc();
+    List<Urun> findByKategoriOrderByIdDesc(String kategori);
 }

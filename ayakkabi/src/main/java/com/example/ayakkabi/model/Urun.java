@@ -17,9 +17,14 @@ public class Urun {
     private String ad;
     private String marka;
     private String model;
-    private String kategori;
-    private int fiyat;
+    private double fiyat;
     private String resim;
+    private String kategori;
+    private int stok;
+
+    // Default constructor
+    public Urun() {
+    }
 
     // Getters and Setters
     public Long getId() {
@@ -54,19 +59,11 @@ public class Urun {
         this.model = model;
     }
 
-    public String getKategori() {
-        return kategori;
-    }
-
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
-    }
-
-    public int getFiyat() {
+    public double getFiyat() {
         return fiyat;
     }
 
-    public void setFiyat(int fiyat) {
+    public void setFiyat(double fiyat) {
         this.fiyat = fiyat;
     }
 
@@ -76,5 +73,21 @@ public class Urun {
 
     public void setResim(String resim) {
         this.resim = resim;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
+
+    public int getStok() {
+        return stok;
+    }
+
+    public void setStok(int stok) {
+        this.stok = stok;
     }
 }

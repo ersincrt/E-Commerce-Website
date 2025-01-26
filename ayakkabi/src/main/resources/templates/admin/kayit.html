@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Kayıt</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Admin Kayıt</h1>
+        <form action="/admin/kayit" method="post" class="needs-validation" novalidate>
+            <div class="form-group">
+                <label for="username">Kullanıcı Adı:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                    <div class="invalid-feedback">Lütfen kullanıcı adınızı girin.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Şifre:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                    <div class="invalid-feedback">Lütfen şifrenizi girin.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productCount">Kaç Ürün Satmayı Planlıyorsunuz?</label>
+                <input type="number" id="productCount" name="productCount" class="form-control" required>
+                <div class="invalid-feedback">Lütfen satmayı planladığınız ürün sayısını girin.</div>
+            </div>
+            <div class="form-group">
+                <label for="reason">Neden Kabul Edilmelisiniz?</label>
+                <textarea id="reason" name="reason" class="form-control" rows="3" required></textarea>
+                <div class="invalid-feedback">Lütfen neden kabul edilmeniz gerektiğini açıklayın.</div>
+            </div>
+            <div class="form-group">
+                <label for="about">Satıcı Hakkında Kısa Açıklama</label>
+                <textarea id="about" name="about" class="form-control" rows="3" required></textarea>
+                <div class="invalid-feedback">Lütfen kendiniz hakkında kısa bir açıklama yapın.</div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Kayıt Ol</button>
+        </form>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html> 

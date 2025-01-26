@@ -2,6 +2,7 @@ package com.example.ayakkabi.controller;
 
 import com.example.ayakkabi.model.UyeOl;
 import com.example.ayakkabi.service.UyeOlService;
+import com.example.ayakkabi.service.UrunService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,9 @@ public class AnasayfaController {
     @Autowired
     private UyeOlService uyeOlService;
 
+    @Autowired
+    private UrunService urunService;
+
     @GetMapping("/")
     public String anasayfa(Model model) {
         model.addAttribute("message", "TİREÇ'e Hoşgeldiniz!");
@@ -36,16 +40,16 @@ public class AnasayfaController {
     }
 
     @PostMapping("/uyeol")
-    public String uyeOlPost(@RequestParam("ad") String ad,
-                            @RequestParam("soyad") String soyad,
-                            @RequestParam("email") String email,
-                            @RequestParam("telefon") String telefon,
-                            @RequestParam("sifre") String sifre,
-                            @RequestParam("dogumTarihi") String dogumTarihi,
-                            @RequestParam("cinsiyet") String cinsiyet,
-                            @RequestParam("uyelikSozlesmesi") boolean uyelikSozlesmesi,
-                            @RequestParam(value = "adimKartSozlesmesi", required = false) boolean adimKartSozlesmesi,
-                            @RequestParam("kvkk") boolean kvkk) {
+    public String uyeOlPost(@RequestParam String ad,
+                            @RequestParam String soyad,
+                            @RequestParam String email,
+                            @RequestParam String telefon,
+                            @RequestParam String sifre,
+                            @RequestParam String dogumTarihi,
+                            @RequestParam String cinsiyet,
+                            @RequestParam boolean uyelikSozlesmesi,
+                            @RequestParam(required = false) boolean adimKartSozlesmesi,
+                            @RequestParam boolean kvkk) {
 
         try {
             UyeOl uyeOl = new UyeOl();
@@ -73,16 +77,19 @@ public class AnasayfaController {
 
     @GetMapping("/kadin")
     public String kadin(Model model) {
+        model.addAttribute("urunler", urunService.getUrunlerByKategori("kadin"));
         return "kadin";
     }
 
     @GetMapping("/erkek")
     public String erkek(Model model) {
+        model.addAttribute("urunler", urunService.getUrunlerByKategori("erkek"));
         return "erkek";
     }
 
     @GetMapping("/cocuk")
     public String cocuk(Model model) {
+        model.addAttribute("urunler", urunService.getUrunlerByKategori("cocuk"));
         return "cocuk";
     }
 
@@ -92,8 +99,8 @@ public class AnasayfaController {
     }
 
     @PostMapping("/giris")
-    public String girisPost(@RequestParam("email") String email,
-                            @RequestParam("sifre") String sifre,
+    public String girisPost(@RequestParam String email,
+                            @RequestParam String sifre,
                             RedirectAttributes redirectAttributes,
                             HttpSession session) {
 

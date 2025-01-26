@@ -14,10 +14,22 @@ public class UrunService {
     private UrunRepository urunRepository;
 
     public List<Urun> getAllUrunler() {
-        return urunRepository.findAll();
+        return urunRepository.findAllByOrderByIdDesc();
     }
 
-    public List<Urun> getFilteredUrunler(String kategori, String marka, int minFiyat, int maxFiyat) {
-        return urunRepository.findByKategoriAndMarkaAndFiyatBetween(kategori, marka, minFiyat, maxFiyat);
+    public List<Urun> getUrunlerByKategori(String kategori) {
+        return urunRepository.findByKategoriOrderByIdDesc(kategori);
+    }
+
+    public Urun getUrunById(Long id) {
+        return urunRepository.findById(id).orElse(null);
+    }
+
+    public Urun saveUrun(Urun urun) {
+        return urunRepository.save(urun);
+    }
+
+    public void deleteUrun(Long id) {
+        urunRepository.deleteById(id);
     }
 }
